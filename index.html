@@ -1,0 +1,79 @@
+<!--
+/**
+ * Mobile Local
+ * 
+ * Author  : Seth Gregory
+ * Version : 1.0
+ * Revised : 2011/02/16
+ * 
+ */
+--> 
+ 
+<!DOCTYPE html> 
+ 
+<html lang="en-us"> 
+  <head> 
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.css" /> 
+    <meta charset="utf-8"> 
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script> 
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0a2/jquery.mobile-1.0a2.min.js"></script>
+
+    <!-- getCurrentPos.js script included, courtesy of Dan Armendariz, http://goo.gl/WvdtO - uncomment if geolocation not working-->
+    <!-- <script type="text/javascript" src="getCurrentPos.js"></script> -->
+
+    <script type="text/javascript" src="mobilelocal.js"></script>
+
+    <title>Mobile Local</title>                 
+  </head> 
+  
+  
+  <body> 
+    
+    <div data-role="page" id="main"> 
+      <div data-role="header" data-theme="b"> 
+        <h1>Mobile Local</h1> 
+      </div> 
+      <div data-role="content">
+      	<div id="weatherdata" style="text-align: center;"><img src="ajax-loader.gif" alt="loading..."></div>
+      	<div><a href="#location" data-role="button">Change Location</a></div>
+      </div>
+      <div data-role="content">
+	    <div id="newsitems"></div>
+      </div>
+    </div> 
+ 
+    <div data-role="page" id="location">
+      <div data-role="header" data-theme="b"> 
+        <h1>Change Location</h1> 
+      </div> 
+ 	  <div data-role="content">
+        <ul data-role="listview" data-theme="c"> 
+          <li><a href="#main" onClick="geoLocate();">Use Geolocation</a></li> 
+        </ul> 
+      </div>
+      
+      <div id="search_location" data-role="collapsible" data-collapsed="true">	    
+      	<h3 id="search_header">Search by Location</h3>    
+      	<!-- 
+      		NOTE: Although the "return false" should ensure that this form does not submit, I continued to receive errors
+      		in the form of "Uncaught TypeError: Object #<an Object> has no method 'attr'" as long as my form had no action defined.
+      		Although I suspect this is an error in JQuery Mobile's current implementation, I provided it with an action to suppress
+      		the error.  I confirmed by pointing the action at my own server and watching the logs that despite its apparent need for
+      		an action to be defined, no request is actually ever made.
+      	-->
+        <form name="locationform" action="http://google.com" onsubmit="ajaxSpinner(); submitLocationForm(); navigateHome(); return false;">
+        	<label for="locationfield">New Location</label>
+        	<input type="text" placeholder="Please type a location name or ZIP code" name="location" id="locationfield">
+        	<input type="submit" name="submit" value="Search">
+        </form> 
+      </div>
+      
+      <div id="search_previous" data-role="collapsible" data-collapsed="true">	    
+      	<h3 id="previous_header">Previous Locations</h3>    
+      		<div id="previouslocations"></div>
+			<a href="#" onClick="clearHistory();" data-role="button" data-theme="d">Clear Location History</a>
+      </div>
+    </div>
+  
+  </body> 
+</html> 
