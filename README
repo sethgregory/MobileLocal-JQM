@@ -1,0 +1,4 @@
+Mobile Local
+============
+
+Mobile Local is a mobile web app that allows users to check local news and weather.  It leverages the JQuery Mobile framework, along with HTML5 local storage.  For its data, it relies on YQL to retrieve weather and to convert RSS from Google News to JSONP.
